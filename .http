@@ -21,7 +21,8 @@ Content-Type: {{contentType}}
 {
     "title": "Learn FullStack",
     "description": "Learn NestJS, NextJS and cloud computing",
-    "status": "OPEN"
+    "status": "OPEN",
+    "userId": "eba488ad-632d-4833-85a1-02926b3f9952"
 }
 
 ### set the task ID
