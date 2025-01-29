@@ -19,10 +19,33 @@ POST {{baseUrl}}/tasks
 Content-Type: {{contentType}}
 
 {
-    "title": "Backend Development",
-    "description": "Learn Nest JS",
+    "title": "Learn FullStack",
+    "description": "Learn NestJS, NextJS and cloud computing",
     "status": "OPEN"
 }
 
 ### set the task ID
 @taskID = {{ createTask.response.body.id }}
+
+
+### Update a task
+PATCH {{baseUrl}}/tasks/{{taskID}}
+Content-Type: {{contentType}}
+
+{
+
+    "status": "IN_PROGRESS"
+}
+
+### Delete a task
+DELETE {{baseUrl}}/tasks/{{taskID}}
+
+
+### Validation error - status and title required
+POST {{baseUrl}}/tasks
+Content-Type: {{contentType}}
+
+{
+    "description": "You must complete this course",
+    "status": "XXX"
+}
