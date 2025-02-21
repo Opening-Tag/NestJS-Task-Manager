@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { TaskStatus } from "./tasks.model";
 import { User } from "./users/user.entity";
+import { TaskLabel } from "./task-label.entity";
 
 @Entity()
 export class Task{
@@ -32,5 +33,13 @@ export class Task{
 
     @ManyToOne(()=> User, user => user.tasks, {nullable: false}) // many tasks belong to one user
     user: User;
+
+
+
+    @OneToMany(() => TaskLabel, (label) => label.task, {
+        cascade: true,
+        orphanedRowAction: "delete"
+    })
+    labels: TaskLabel[];
 
 }

@@ -9,6 +9,10 @@ GET {{baseUrl}}
 # @name getAllTasks
 GET {{baseUrl}}/tasks
 
+## Get all tasks in progress
+# @name getAllTaskInProgress
+GET {{baseUrl}}/tasks?status=IN_PROGRESS
+
 ### Get a task by ID
 # @name getTaskByID
 GET {{baseUrl}}/tasks/{{taskID}}
@@ -19,10 +23,15 @@ POST {{baseUrl}}/tasks
 Content-Type: {{contentType}}
 
 {
-    "title": "Learn FullStack",
-    "description": "Learn NestJS, NextJS and cloud computing",
+    "title": "Learn BlockChain",
+    "description": "Solidity, ThirdWeb and Hardhat",
     "status": "OPEN",
-    "userId": "eba488ad-632d-4833-85a1-02926b3f9952"
+    "userId": "eba488ad-632d-4833-85a1-02926b3f9952",
+     "labels": [
+    {
+      "name": "urgent"
+    }
+  ]
 }
 
 ### set the task ID

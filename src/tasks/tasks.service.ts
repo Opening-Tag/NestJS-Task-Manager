@@ -6,6 +6,7 @@ import { Task } from './task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { WrongTaskStatusException } from './exceptions/wrong-task-status.exception';
 import { UpdateTaskDto } from './update-task.dto';
+import { FindTaskParams } from './find-task.params';
 
 @Injectable()
 export class TasksService {
@@ -13,8 +14,13 @@ export class TasksService {
     @InjectRepository(Task)
     private readonly tasksRepository: Repository<Task>,
   ) {}
-  public async findAll(): Promise<Task[]> {
-    return await this.tasksRepository.find();
+  public async findAll(filters: FindTaskParams): Promise<Task[]> {
+    return await this.tasksRepository.find({
+      where: {
+        status: filters.status,
+      },
+      relations: ['labels'],
+    });
   }
 
   public async findOne(id: string): Promise<Task | null> {
@@ -36,7 +42,7 @@ export class TasksService {
       throw new WrongTaskStatusException();
     }
 
-      Object.assign(task, updateTaskDto);
+    Object.assign(task, updateTaskDto);
     return await this.tasksRepository.save(task);
   }
 
