@@ -9,6 +9,9 @@ GET {{baseUrl}}
 # @name getAllTasks
 GET {{baseUrl}}/tasks
 
+### Testing pagination
+GET {{baseUrl}}/tasks?limit=2&offset=2
+
 ## Get all tasks in progress
 # @name getAllTaskInProgress
 GET {{baseUrl}}/tasks?status=IN_PROGRESS

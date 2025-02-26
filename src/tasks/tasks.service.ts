@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { WrongTaskStatusException } from './exceptions/wrong-task-status.exception';
 import { UpdateTaskDto } from './update-task.dto';
 import { FindTaskParams } from './find-task.params';
+import { PaginationParams } from 'src/common/pagination.param';
 
 @Injectable()
 export class TasksService {
@@ -14,12 +15,14 @@ export class TasksService {
     @InjectRepository(Task)
     private readonly tasksRepository: Repository<Task>,
   ) {}
-  public async findAll(filters: FindTaskParams): Promise<Task[]> {
-    return await this.tasksRepository.find({
+  public async findAll(filters: FindTaskParams, pagination: PaginationParams): Promise<[Task[], number]> {
+    return await this.tasksRepository.findAndCount({
       where: {
         status: filters.status,
       },
       relations: ['labels'],
+      skip: pagination.offset,
+      take: pagination.limit
     });
   }
 
